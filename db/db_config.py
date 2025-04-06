@@ -28,3 +28,8 @@ async def get_db_pool():
             max_size = 20
     )
     return db_pool
+
+async def get_connection():
+    pool = await get_db_pool()
+    async with pool.acquire() as connection:
+        yield connection
